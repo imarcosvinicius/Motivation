@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.Toast
 import com.example.motivation.R
 import com.example.motivation.databinding.ActivitySplashBinding
+import com.example.motivation.infra.MotivationConstants
 import com.example.motivation.infra.SecurityPreferences
 
 class SplashActivity : AppCompatActivity(), View.OnClickListener {
@@ -38,7 +39,7 @@ class SplashActivity : AppCompatActivity(), View.OnClickListener {
         val name = binding.editName.text.toString()
 
         if (name != "") {
-            mSecurityPreference.storeString("name", name)
+            mSecurityPreference.storeString(MotivationConstants.KEY.PERSON_NAME, name)
             startActivity(Intent(this, MainActivity::class.java))
         } else {
             Toast.makeText(this, getString(R.string.informe_seu_nome), Toast.LENGTH_SHORT).show()
