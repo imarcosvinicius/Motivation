@@ -1,15 +1,19 @@
-package com.example.motivation
+package com.example.motivation.ui
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import com.example.motivation.R
 import com.example.motivation.databinding.ActivitySplashBinding
+import com.example.motivation.infra.SecurityPreferences
 
 class SplashActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var binding: ActivitySplashBinding
+
+    private lateinit var mSecurityPreference: SecurityPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,6 +22,8 @@ class SplashActivity : AppCompatActivity(), View.OnClickListener {
         setContentView(view)
 
         binding.buttonSave.setOnClickListener(this)
+
+        mSecurityPreference = SecurityPreferences(this)
 
     }
 
@@ -32,6 +38,7 @@ class SplashActivity : AppCompatActivity(), View.OnClickListener {
         val name = binding.editName.text.toString()
 
         if (name != "") {
+            mSecurityPreference.storeString("name", name)
             startActivity(Intent(this, MainActivity::class.java))
         } else {
             Toast.makeText(this, getString(R.string.informe_seu_nome), Toast.LENGTH_SHORT).show()
