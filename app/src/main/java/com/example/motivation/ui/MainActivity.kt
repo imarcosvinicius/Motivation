@@ -8,12 +8,15 @@ import com.example.motivation.R
 import com.example.motivation.databinding.ActivityMainBinding
 import com.example.motivation.infra.MotivationConstants
 import com.example.motivation.infra.SecurityPreferences
+import com.example.motivation.repository.Mock
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var binding: ActivityMainBinding
 
     private lateinit var mSecurityPreference: SecurityPreferences
+
+    private var mPhraseFilter: Int = MotivationConstants.PHRASEFILTER.ALL
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,8 +25,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         setContentView(view)
 
         mSecurityPreference = SecurityPreferences(this)
+        val name = mSecurityPreference.getString(MotivationConstants.KEY.PERSON_NAME)
+        binding.textName.text = "Olá, $name!"
 
-        binding.textName.text = mSecurityPreference.getString(MotivationConstants.KEY.PERSON_NAME)
+        //initial session logic
+        binding.imageAll.setColorFilter(ContextCompat.getColor(this, R.color.colorAccent))
+        handleNewPhrase()
 
         binding.imageAll.setOnClickListener(this)
         binding.imageHappy.setOnClickListener(this)
@@ -57,20 +64,25 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         when (id) {
             R.id.imageAll -> {
                 imageAll.setColorFilter(ContextCompat.getColor(this, R.color.colorAccent))
+                mPhraseFilter = MotivationConstants.PHRASEFILTER.ALL
             }
             R.id.imageHappy -> {
                 imageHappy.setColorFilter(ContextCompat.getColor(this, R.color.colorAccent))
+                mPhraseFilter = MotivationConstants.PHRASEFILTER.HAPPY
             }
             R.id.imageMorning -> {
                 imageMorning.setColorFilter(ContextCompat.getColor(this, R.color.colorAccent))
+                mPhraseFilter = MotivationConstants.PHRASEFILTER.MORNING
             }
         }
 
 
     }
 
-    private fun handleNewPhrase() {
 
+    private fun handleNewPhrase() {
+        val phrase = Mock().getPhrase(mPhraseFilter)
+        binding.textPhrase.text = phrase
     }
 
 }

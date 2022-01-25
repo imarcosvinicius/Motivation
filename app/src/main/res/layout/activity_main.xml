@@ -57,13 +57,14 @@
 
     <TextView
         android:id="@+id/textPhrase"
-        android:layout_marginTop="32dp"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="22sp"
-        android:text="@string/frase"/>
+        android:layout_centerInParent="true"
+        android:layout_marginTop="32dp"
+        android:layout_margin="16dp"
+        android:textAlignment="center"
+        android:text="@string/frase"
+        android:textSize="22sp" />
     
     <View
         android:layout_width="128dp"
@@ -77,12 +78,12 @@
         android:id="@+id/buttonNewPhrase"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/button_nova_frase"
-        android:textColor="@color/white"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:backgroundTint="@color/colorPrimary"
-        android:padding="16dp"
         android:layout_marginBottom="16dp"
-        android:layout_alignParentBottom="true"/>
+        android:background="@drawable/ripple_button"
+        android:padding="12dp"
+        android:text="@string/button_nova_frase"
+        android:textColor="@color/white" />
 
 </RelativeLayout>

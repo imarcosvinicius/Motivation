@@ -26,6 +26,8 @@ class SplashActivity : AppCompatActivity(), View.OnClickListener {
 
         mSecurityPreference = SecurityPreferences(this)
 
+        verifyName()
+
     }
 
     override fun onClick(view: View) {
@@ -35,12 +37,22 @@ class SplashActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
+    private fun verifyName() {
+        val name = mSecurityPreference.getString(MotivationConstants.KEY.PERSON_NAME)
+
+        if (name != "") {
+            startActivity(Intent(this, MainActivity::class.java))
+            finish()
+        }
+    }
+
     private fun handleSave(){
         val name = binding.editName.text.toString()
 
         if (name != "") {
             mSecurityPreference.storeString(MotivationConstants.KEY.PERSON_NAME, name)
             startActivity(Intent(this, MainActivity::class.java))
+            finish()
         } else {
             Toast.makeText(this, getString(R.string.informe_seu_nome), Toast.LENGTH_SHORT).show()
         }
